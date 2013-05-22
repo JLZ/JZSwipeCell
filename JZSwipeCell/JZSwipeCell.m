@@ -71,6 +71,15 @@ static CGFloat const kMaxBounceAmount = 8;
 	return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	self = [super initWithCoder:aDecoder];
+    if (self) {
+		[self configureCell];
+    }
+    return self;
+}
+
 - (void)awakeFromNib
 {
 	[super awakeFromNib];
@@ -119,6 +128,9 @@ static CGFloat const kMaxBounceAmount = 8;
 - (void)configureCell
 {
 	self.selectionStyle = UITableViewCellSelectionStyleNone;
+	
+	if (!self.contentView.backgroundColor)
+		self.contentView.backgroundColor = [UIColor whiteColor];
 	
 	if (!self.icon)
 	{
@@ -259,13 +271,13 @@ static CGFloat const kMaxBounceAmount = 8;
 
 	if ([self isRightSwipeType:type])
 	{
-		self.icon.center = CGPointMake(self.contentView.center.x - ((self.contentView.frame.size.width / 2) + (self.icon.frame.size.width / 2) + kIconHorizontalPadding), self.icon.center.y);
+		self.icon.center = CGPointMake(self.contentView.center.x - ((self.contentView.frame.size.width / 2) + (self.icon.frame.size.width / 2) + kIconHorizontalPadding), self.contentView.frame.size.height / 2);
 		newIconCenterX = self.frame.size.width + (self.icon.frame.size.width / 2) + kIconHorizontalPadding;
 		newViewCenterX = newIconCenterX + (self.contentView.frame.size.width / 2) + (self.icon.frame.size.width / 2) + kIconHorizontalPadding;
 	}
 	else if ([self isLeftSwipeType:type])
 	{
-		self.icon.center = CGPointMake(self.contentView.center.x + (self.contentView.frame.size.width / 2) + (self.icon.frame.size.width / 2) + kIconHorizontalPadding, self.icon.center.y);
+		self.icon.center = CGPointMake(self.contentView.center.x + (self.contentView.frame.size.width / 2) + (self.icon.frame.size.width / 2) + kIconHorizontalPadding, self.contentView.frame.size.height / 2);
 		newIconCenterX = -((self.icon.frame.size.width / 2) + kIconHorizontalPadding);
 		newViewCenterX = newIconCenterX - ((self.contentView.frame.size.width / 2) + (self.icon.frame.size.width / 2) + kIconHorizontalPadding);
 	}
@@ -280,7 +292,7 @@ static CGFloat const kMaxBounceAmount = 8;
 	[UIView animateWithDuration:0.25 delay:0
 						options:UIViewAnimationOptionCurveLinear
 					 animations:^{
-						 self.icon.center = CGPointMake(newIconCenterX, self.icon.center.y);
+						 self.icon.center = CGPointMake(newIconCenterX, self.contentView.frame.size.height / 2);
 						 self.contentView.center = CGPointMake(newViewCenterX, self.contentView.center.y);
 						 self.icon.alpha = iconAlpha;
 					 } completion:^(BOOL finished) {
