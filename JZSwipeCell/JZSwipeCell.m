@@ -277,8 +277,7 @@ static CGFloat const kMaxBounceAmount = 8;
 		iconAlpha = 0;
 	}
 	
-	
-	[UIView animateWithDuration:0.3 delay:0
+	[UIView animateWithDuration:0.25 delay:0
 						options:UIViewAnimationOptionCurveLinear
 					 animations:^{
 						 self.icon.center = CGPointMake(newIconCenterX, self.icon.center.y);
