@@ -71,15 +71,6 @@ static CGFloat const kMaxBounceAmount = 8;
 	return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-	self = [super initWithCoder:aDecoder];
-    if (self) {
-		[self configureCell];
-    }
-    return self;
-}
-
 - (void)awakeFromNib
 {
 	[super awakeFromNib];
