@@ -24,6 +24,7 @@
 
 static CGFloat const kIconHorizontalPadding = 10;
 static CGFloat const kDefaultIconSize = 40;
+static CGFloat const kMaxBounceAmount = 8;
 
 @interface JZSwipeCell()
 
@@ -37,6 +38,7 @@ static CGFloat const kDefaultIconSize = 40;
 - (BOOL)isRightSwipeType:(JZSwipeType)type;
 - (BOOL)isLeftSwipeType:(JZSwipeType)type;
 - (void)runSwipeAnimationForType:(JZSwipeType)type;
+- (void)runBounceAnimationFromPoint:(CGPoint)point;
 @end
 
 @implementation JZSwipeCell
@@ -235,7 +237,10 @@ static CGFloat const kDefaultIconSize = 40;
 			}
 			break;
 		case UIGestureRecognizerStateEnded:
-			[self runSwipeAnimationForType:self.currentSwipe];
+			if (self.currentSwipe != JZSwipeTypeNone)
+				[self runSwipeAnimationForType:self.currentSwipe];
+			else
+				[self runBounceAnimationFromPoint:translatedPoint];
 			break;
 		case UIGestureRecognizerStateCancelled:
 			
@@ -282,6 +287,28 @@ static CGFloat const kDefaultIconSize = 40;
 						 if ([self.delegate respondsToSelector:@selector(swipeCell:triggeredSwipeWithType:)])
 							 [self.delegate swipeCell:self triggeredSwipeWithType:type];
 						 self.dragStart = CGFLOAT_MIN;
+					 }];
+}
+
+- (void)runBounceAnimationFromPoint:(CGPoint)point
+{
+	CGFloat diff = point.x;
+	CGFloat pct = diff / (self.icon.frame.size.width + (kIconHorizontalPadding * 2));
+	CGFloat bouncePoint = pct * kMaxBounceAmount;
+	CGFloat bounceTime1 = 0.25;
+	CGFloat bounceTime2 = 0.15;
+	
+	[UIView animateWithDuration:bounceTime1
+					 animations:^{
+						 self.swipeView.center = CGPointMake(self.dragStart - bouncePoint, self.swipeView.center.y);
+						 self.icon.alpha = 0;
+					 } completion:^(BOOL finished) {
+						 [UIView animateWithDuration:bounceTime2
+										  animations:^{
+											  self.swipeView.center = CGPointMake(self.dragStart, self.swipeView.center.y);
+										  } completion:^(BOOL finished) {
+											  
+										  }];
 					 }];
 }
 
