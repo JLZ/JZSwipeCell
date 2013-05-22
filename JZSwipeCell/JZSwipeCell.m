@@ -80,7 +80,7 @@ static CGFloat const kMaxBounceAmount = 8;
 - (void)prepareForReuse
 {
 	[super prepareForReuse];
-	self.swipeView.center = CGPointMake(self.swipeView.frame.size.width / 2, self.swipeView.center.y);
+	self.contentView.center = CGPointMake(self.contentView.frame.size.width / 2, self.contentView.center.y);
 	self.currentSwipe = JZSwipeTypeNone;
 }
 
@@ -126,17 +126,17 @@ static CGFloat const kMaxBounceAmount = 8;
 		[self addSubview:self.icon];
 	}
 	
-	if (!self.swipeView)
+	if (!self.contentView)
 	{
-		self.swipeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-		[self addSubview:self.swipeView];
+		self.contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+		[self addSubview:self.contentView];
 	}
 	
 	self.gesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(gestureHappened:)];
 	self.gesture.delegate = self;
-	[self.swipeView addGestureRecognizer:self.gesture];
+	[self.contentView addGestureRecognizer:self.gesture];
 	
-	self.shortSwipeLength = self.swipeView.frame.size.width * 0.66;
+	self.shortSwipeLength = self.contentView.frame.size.width * 0.66;
 	
 	self.colorSet = [self defaultColorSet];
 	self.defaultBackgroundColor = [UIColor lightGrayColor];
@@ -168,7 +168,7 @@ static CGFloat const kMaxBounceAmount = 8;
 			self.dragStart = sender.view.center.x;
 			break;
 		case UIGestureRecognizerStateChanged:
-			self.swipeView.center = CGPointMake(self.dragStart + translatedPoint.x, self.swipeView.center.y);
+			self.contentView.center = CGPointMake(self.dragStart + translatedPoint.x, self.contentView.center.y);
 			CGFloat diff = translatedPoint.x;
 			
 			if (diff > 0)
@@ -179,7 +179,7 @@ static CGFloat const kMaxBounceAmount = 8;
 					// fade range
 					self.icon.image = self.imageSet.shortRightSwipeImage;
 					self.backgroundView.backgroundColor = self.defaultBackgroundColor;
-					self.icon.center = CGPointMake((self.icon.frame.size.width / 2) + kIconHorizontalPadding, self.swipeView.frame.size.height / 2);
+					self.icon.center = CGPointMake((self.icon.frame.size.width / 2) + kIconHorizontalPadding, self.contentView.frame.size.height / 2);
 					self.icon.alpha = diff / (self.icon.frame.size.width + (kIconHorizontalPadding * 3));
 					self.currentSwipe = JZSwipeTypeNone;
 				}
@@ -199,7 +199,7 @@ static CGFloat const kMaxBounceAmount = 8;
 						self.currentSwipe = JZSwipeTypeLongRight;
 					}
 					
-					self.icon.center = CGPointMake(self.swipeView.frame.origin.x - ((self.icon.frame.size.width / 2) + kIconHorizontalPadding), self.swipeView.frame.size.height / 2);
+					self.icon.center = CGPointMake(self.contentView.frame.origin.x - ((self.icon.frame.size.width / 2) + kIconHorizontalPadding), self.contentView.frame.size.height / 2);
 					self.icon.alpha = 1;
 				}
 			}
@@ -211,7 +211,7 @@ static CGFloat const kMaxBounceAmount = 8;
 					// fade range
 					self.icon.image = self.imageSet.shortLeftSwipeImage;
 					self.backgroundView.backgroundColor = self.defaultBackgroundColor;
-					self.icon.center = CGPointMake(self.frame.size.width - ((self.icon.frame.size.width / 2) + kIconHorizontalPadding), self.swipeView.frame.size.height / 2);
+					self.icon.center = CGPointMake(self.frame.size.width - ((self.icon.frame.size.width / 2) + kIconHorizontalPadding), self.contentView.frame.size.height / 2);
 					self.icon.alpha = fabs(diff / (self.icon.frame.size.width + (kIconHorizontalPadding * 3)));
 					self.currentSwipe = JZSwipeTypeNone;
 				}
@@ -231,7 +231,7 @@ static CGFloat const kMaxBounceAmount = 8;
 						self.currentSwipe = JZSwipeTypeLongLeft;
 					}
 					
-					self.icon.center = CGPointMake((self.swipeView.frame.origin.x + self.swipeView.frame.size.width) + ((self.icon.frame.size.width / 2) + kIconHorizontalPadding), self.swipeView.frame.size.height / 2);
+					self.icon.center = CGPointMake((self.contentView.frame.origin.x + self.contentView.frame.size.width) + ((self.icon.frame.size.width / 2) + kIconHorizontalPadding), self.contentView.frame.size.height / 2);
 					self.icon.alpha = 1;
 				}
 			}
@@ -259,18 +259,19 @@ static CGFloat const kMaxBounceAmount = 8;
 
 	if ([self isRightSwipeType:type])
 	{
-		self.icon.center = CGPointMake(self.swipeView.center.x - ((self.swipeView.frame.size.width / 2) + (self.icon.frame.size.width / 2) + kIconHorizontalPadding), self.icon.center.y);
+		self.icon.center = CGPointMake(self.contentView.center.x - ((self.contentView.frame.size.width / 2) + (self.icon.frame.size.width / 2) + kIconHorizontalPadding), self.icon.center.y);
 		newIconCenterX = self.frame.size.width + (self.icon.frame.size.width / 2) + kIconHorizontalPadding;
-		newViewCenterX = newIconCenterX + (self.swipeView.frame.size.width / 2) + (self.icon.frame.size.width / 2) + kIconHorizontalPadding;
+		newViewCenterX = newIconCenterX + (self.contentView.frame.size.width / 2) + (self.icon.frame.size.width / 2) + kIconHorizontalPadding;
 	}
 	else if ([self isLeftSwipeType:type])
 	{
-		self.icon.center = CGPointMake(self.swipeView.center.x + (self.swipeView.frame.size.width / 2) + (self.icon.frame.size.width / 2) + kIconHorizontalPadding, self.icon.center.y);
+		self.icon.center = CGPointMake(self.contentView.center.x + (self.contentView.frame.size.width / 2) + (self.icon.frame.size.width / 2) + kIconHorizontalPadding, self.icon.center.y);
 		newIconCenterX = -((self.icon.frame.size.width / 2) + kIconHorizontalPadding);
-		newViewCenterX = newIconCenterX - ((self.swipeView.frame.size.width / 2) + (self.icon.frame.size.width / 2) + kIconHorizontalPadding);
+		newViewCenterX = newIconCenterX - ((self.contentView.frame.size.width / 2) + (self.icon.frame.size.width / 2) + kIconHorizontalPadding);
 	}
 	else
 	{
+		// non-bouncing swipe type none (unused)
 		newIconCenterX = self.icon.center.x;
 		newViewCenterX = self.dragStart;
 		iconAlpha = 0;
@@ -281,7 +282,7 @@ static CGFloat const kMaxBounceAmount = 8;
 						options:UIViewAnimationOptionCurveLinear
 					 animations:^{
 						 self.icon.center = CGPointMake(newIconCenterX, self.icon.center.y);
-						 self.swipeView.center = CGPointMake(newViewCenterX, self.swipeView.center.y);
+						 self.contentView.center = CGPointMake(newViewCenterX, self.contentView.center.y);
 						 self.icon.alpha = iconAlpha;
 					 } completion:^(BOOL finished) {
 						 if ([self.delegate respondsToSelector:@selector(swipeCell:triggeredSwipeWithType:)])
@@ -300,12 +301,12 @@ static CGFloat const kMaxBounceAmount = 8;
 	
 	[UIView animateWithDuration:bounceTime1
 					 animations:^{
-						 self.swipeView.center = CGPointMake(self.dragStart - bouncePoint, self.swipeView.center.y);
+						 self.contentView.center = CGPointMake(self.dragStart - bouncePoint, self.contentView.center.y);
 						 self.icon.alpha = 0;
 					 } completion:^(BOOL finished) {
 						 [UIView animateWithDuration:bounceTime2
 										  animations:^{
-											  self.swipeView.center = CGPointMake(self.dragStart, self.swipeView.center.y);
+											  self.contentView.center = CGPointMake(self.dragStart, self.contentView.center.y);
 										  } completion:^(BOOL finished) {
 											  
 										  }];

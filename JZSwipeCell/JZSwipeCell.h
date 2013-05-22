@@ -76,7 +76,7 @@ NS_INLINE SwipeCellColorSet* SwipeCellColorSetMake(UIColor *shortRightSwipeColor
 
 /**
  The 5 available types of swipes.
- @discussion `JZSwipeTypeShortRight`, `JZSwipeTypeLongRight`, `JZSwipeTypeShortLeft` and `JZSwipeTypeLongLeft` are all active swipe types. `JZSwipeTypeNone` is an inactive swipe type and does not trigger an animation which causes the `swipeView` to slide off screen.
+ @discussion `JZSwipeTypeShortRight`, `JZSwipeTypeLongRight`, `JZSwipeTypeShortLeft` and `JZSwipeTypeLongLeft` are all active swipe types. `JZSwipeTypeNone` is an inactive swipe type and does not trigger an animation which causes the `contentView` to slide off screen.
  */
 typedef enum {
 	JZSwipeTypeNone,
@@ -106,7 +106,7 @@ typedef enum {
 /**
  The main view that slides horizontally when a gesture is detected. All subviews should be added to this view.
  */
-@property (nonatomic, strong) IBOutlet UIView *swipeView;
+@property (nonatomic, strong) IBOutlet UIView *contentView;
 
 /**
  The image view in which the icons are displayed.
