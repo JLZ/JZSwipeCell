@@ -44,7 +44,7 @@
 							<object class="IBUIImageView" id="379890458">
 								<reference key="NSNextResponder" ref="1050039903"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{140, 20}, {40, 40}}</string>
+								<string key="NSFrame">{{140, 20}, {25, 25}}</string>
 								<reference key="NSSuperview" ref="1050039903"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
@@ -276,6 +276,7 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="contentView">UIView</string>
 						<string key="icon">UIImageView</string>
+						<string key="swipeView">UIView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="contentView">
@@ -285,6 +286,10 @@
 						<object class="IBToOneOutletInfo" key="icon">
 							<string key="name">icon</string>
 							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="swipeView">
+							<string key="name">swipeView</string>
+							<string key="candidateClassName">UIView</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
