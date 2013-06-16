@@ -315,10 +315,13 @@ static CGFloat const kMaxBounceAmount = 8;
 					 }];
 }
 
-#pragma mark UIGestureRecognizerDelegate methods
+#pragma mark - UIGestureRecognizerDelegate methods
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
+	if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]])
+		return YES;
+	
 	CGPoint translation = [(UIPanGestureRecognizer*)gestureRecognizer translationInView:self];
     return fabs(translation.y) < fabs(translation.x);
 }
