@@ -79,8 +79,11 @@ static NSMutableArray *tableData;
 	if (swipeType != JZSwipeTypeNone)
 	{
 		NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-		[tableData removeObjectAtIndex:indexPath.row];
-		[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		if (indexPath)
+		{
+			[tableData removeObjectAtIndex:indexPath.row];
+			[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		}
 	}
 	
 }
