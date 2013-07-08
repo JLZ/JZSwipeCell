@@ -99,6 +99,17 @@ typedef enum {
  @param swipeType The type of swipe detected in the cell.
  */
 - (void)swipeCell:(JZSwipeCell*)cell triggeredSwipeWithType:(JZSwipeType)swipeType;
+
+@optional
+
+/**
+ Notifies the delegate that the content view transitioned from one swipe zone to another
+ @param cell The `JZSwipeCell` the swipe was detected in. Use `UITableView`'s `-indexPathForCell:` method to find the `NSIndexPath` for the cell.
+ @param from The `JZSwipeType` the cell transitioned from
+ @param to The `JZSwipeType` the cell transitioned to
+ */
+- (void)swipeCell:(JZSwipeCell *)cell swipeTypeChangedFrom:(JZSwipeType)from to:(JZSwipeType)to;
+
 @end
 
 @interface JZSwipeCell : UITableViewCell <UIGestureRecognizerDelegate>

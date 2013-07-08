@@ -89,4 +89,10 @@ static NSMutableArray *tableData;
 	
 }
 
+- (void)swipeCell:(JZSwipeCell *)cell swipeTypeChangedFrom:(JZSwipeType)from to:(JZSwipeType)to
+{
+	// perform custom state changes here
+	NSLog(@"Swipe Changed From (%d) To (%d)", from, to);
+}
+
 @end

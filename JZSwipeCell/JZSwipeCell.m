@@ -174,6 +174,8 @@ static CGFloat const kMaxBounceAmount = 8;
 			self.contentView.center = CGPointMake(self.dragStart + translatedPoint.x, self.contentView.center.y);
 			CGFloat diff = translatedPoint.x;
 			
+			JZSwipeType originalSwipe = self.currentSwipe;
+			
 			if (diff > 0)
 			{
 				// in short right swipe area
@@ -238,6 +240,13 @@ static CGFloat const kMaxBounceAmount = 8;
 					self.icon.alpha = 1;
 				}
 			}
+			
+			if (originalSwipe != self.currentSwipe)
+			{
+				if ([self.delegate respondsToSelector:@selector(swipeCell:swipeTypeChangedFrom:to:)])
+					[self.delegate swipeCell:self swipeTypeChangedFrom:originalSwipe to:self.currentSwipe];
+			}
+			
 			break;
 		case UIGestureRecognizerStateEnded:
 			if (self.currentSwipe != JZSwipeTypeNone)
