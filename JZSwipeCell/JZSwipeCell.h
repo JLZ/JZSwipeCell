@@ -153,6 +153,11 @@ typedef enum {
 @property (nonatomic, assign) id<JZSwipeCellDelegate> delegate;
 
 /**
+ The UIGestureRecognizer which JZSwipeCell can recognize.
+ */
+@property (nonatomic, strong) UIPanGestureRecognizer *gesture;
+
+/**
  Manually trigger a swipe animation followed by a message send to the cell's delegate.
  @param type The type of swipe you would like the cell to trigger.
  */
