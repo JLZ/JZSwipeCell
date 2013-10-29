@@ -28,7 +28,6 @@ static CGFloat const kMaxBounceAmount = 8;
 
 @interface JZSwipeCell()
 
-@property (nonatomic, strong) UIPanGestureRecognizer *gesture;
 @property (nonatomic, assign) CGFloat dragStart;
 @property (nonatomic, assign) JZSwipeType currentSwipe;
 
