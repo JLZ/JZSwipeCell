@@ -161,6 +161,9 @@ static CGFloat const kMaxBounceAmount = 8;
 - (void)gestureHappened:(UIPanGestureRecognizer *)sender
 {
 	CGPoint translatedPoint = [sender translationInView:self];
+    if (translatedPoint.x > 0 && !self.allowSwipeRight) return;
+    if (translatedPoint.x < 0 && !self.allowSwipeLeft) return;
+
 	switch (sender.state)
 	{
 		case UIGestureRecognizerStatePossible:
@@ -349,6 +352,16 @@ static CGFloat const kMaxBounceAmount = 8;
 - (BOOL)isLeftSwipeType:(JZSwipeType)type
 {
 	return type == JZSwipeTypeShortLeft || type == JZSwipeTypeLongLeft;
+}
+
+- (BOOL)allowSwipeRight
+{
+    return (self.imageSet.longRightSwipeImage || self.imageSet.shortRightSwipeImage);
+}
+
+- (BOOL)allowSwipeLeft
+{
+    return (self.imageSet.longLeftSwipeImage || self.imageSet.shortLeftSwipeImage);
 }
 
 @end
