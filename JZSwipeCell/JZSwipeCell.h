@@ -103,7 +103,7 @@ typedef enum {
 /**
  Notifies the delegate that a swipe has been restored to its original position.
  @param cell The `JZSwipeCell` the swipe was detected in. Use `UITableView`'s `-indexPathForCell:` method to find the `NSIndexPath` for the cell.
- @param The indicator wether the cell was restored with or without animation
+ @param The indicator whether the cell was restored with or without animation
  @author Paul Peelen <Paul@PaulPeelen.com>
  */
 - (void)swipeCell:(JZSwipeCell*)cell didRestoreSwipeAmimated:(BOOL)animated;
