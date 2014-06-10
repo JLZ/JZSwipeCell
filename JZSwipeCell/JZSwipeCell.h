@@ -100,6 +100,14 @@ typedef enum {
  */
 - (void)swipeCell:(JZSwipeCell*)cell triggeredSwipeWithType:(JZSwipeType)swipeType;
 
+/**
+ Notifies the delegate that a swipe has been restored to its original position.
+ @param cell The `JZSwipeCell` the swipe was detected in. Use `UITableView`'s `-indexPathForCell:` method to find the `NSIndexPath` for the cell.
+ @param The indicator wether the cell was restored with or without animation
+ @author Paul Peelen <Paul@PaulPeelen.com>
+ */
+- (void)swipeCell:(JZSwipeCell*)cell didRestoreSwipeAmimated:(BOOL)animated;
+
 @optional
 
 /**
@@ -162,5 +170,13 @@ typedef enum {
  @param type The type of swipe you would like the cell to trigger.
  */
 - (void)triggerSwipeWithType:(JZSwipeType)type;
+
+/**
+ Restore the cell to its original position
+ @param animated BOOL If the restoration should be animated
+ @param animated CGFloat The duration of the delay before animating the restoration
+ @author Paul Peelen <Paul@PaulPeelen.com>
+ */
+- (void)restoreCell:(BOOL)animated delay:(CGFloat)delay;
 
 @end
