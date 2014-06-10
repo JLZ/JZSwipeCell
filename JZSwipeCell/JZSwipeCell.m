@@ -113,6 +113,26 @@ static CGFloat const kMaxBounceAmount = 8;
 	[self runSwipeAnimationForType:type];
 }
 
+- (void)restoreCell:(BOOL)animated delay:(CGFloat)delay
+{
+	CGFloat newViewCenterX = self.dragStart;
+	CGFloat iconAlpha = 0;
+    
+    newViewCenterX = self.dragStart;
+    
+	[UIView animateWithDuration:0.12
+                          delay:delay
+						options:UIViewAnimationOptionCurveLinear
+					 animations:^{
+						 self.contentView.center = CGPointMake(newViewCenterX, self.contentView.center.y);
+						 self.icon.alpha = iconAlpha;
+					 } completion:^(BOOL finished) {
+						 if ([self.delegate respondsToSelector:@selector(swipeCell:didRestoreSwipeAmimated:)])
+							 [self.delegate swipeCell:self didRestoreSwipeAmimated:animated];
+						 self.dragStart = CGFLOAT_MIN;
+					 }];
+}
+
 #pragma mark - Private methods
 
 - (void)configureCell

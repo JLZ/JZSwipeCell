@@ -37,6 +37,10 @@ You can also trigger the swipe animation to run without any swipe occurring.
 	JZSwipeCell *cell = (JZSwipeCell*)[self.tableView cellForRowAtIndexPath:indexPath];
 	[cell triggerSwipeWithType:JZSwipeTypeShortRight];
 
+To restore a swipe, you can simply use the `restoreCell:delay` method as such:
+
+	[cell restoreCell:YES delay:0.1];
+
 
 Take a look at the examples for more info. There is one example of subclassing **JZSwipeCell** with a xib and another without.
 
